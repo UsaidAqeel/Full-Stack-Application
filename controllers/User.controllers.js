@@ -1,5 +1,6 @@
 const User = {
-    CreateUser : () => {}
-}
+  createUser: () => {},
+  signUp: () => {},
+};
 
-module.exports = User
+module.exports = User;
