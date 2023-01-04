@@ -1,6 +1,17 @@
 const User = {
-  createUser: () => {},
-  signUp: () => {},
-};
+    createUser : (req,res) => {
+        try{
+          
+        }
+        catch(err){
+        }
+    },
+    logInUser  : (req,res) => {
+        try{
 
-module.exports = User;
+        }catch(err){
+        }
+    }
+}
+
+module.exports = User
