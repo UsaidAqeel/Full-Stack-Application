@@ -15,7 +15,7 @@ const User = {
           res.json({ message: "Some thing is wrong" });
         } else {
           res.status(200);
-          res.json({ message: "user create", data });
+          res.json({ message: "user created", data });
         }
       });
     } catch (err) {
@@ -25,6 +25,24 @@ const User = {
   },
   logInUser: (req, res) => {
     try {
+      const { userEmail, userPassword } = req.body;
+      if (!userEmail || !userPassword) {
+        res.status(400);
+        res.json({ message: "Something is missing" });
+        return;
+      }
+      userModel.findOne({userEmail},(err,data) => {
+        if(err){
+            console.log(err);
+            res.status(500)
+            res.json({message : "Something is wrong"})
+            return
+        }
+        else{
+            res.status(200)
+            res.json({message : "Get user",data})
+        }
+      })
     } catch (err) {}
   },
 };
