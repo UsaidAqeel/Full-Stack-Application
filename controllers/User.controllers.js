@@ -7,7 +7,7 @@ const User = {
     try {
       const { userName, userEmail, userPassword } = req.body;
       if (!userName || !userEmail || !userPassword) {
-        res.status(400).json({ message: "some filled is missing" });
+        res.status(500).json({ message: "some filled is missing" });
         return;
       }
       userModel.findOne({ userEmail }, async (err, user) => {
@@ -32,14 +32,14 @@ const User = {
         }
       });
     } catch (err) {
-      res.status(400).json({ message: "err" });
+      res.status(500).json({ message: "err" });
     }
   },
   logInUser: (req, res) => {
     try {
       const { userEmail, userPassword } = req.body;
       if (!userEmail || !userPassword) {
-        res.status(400).json({ message: "Something is missing" });
+        res.status(500).json({ message: "Something is missing" });
         return;
       }
       userModel.findOne({ userEmail }, async (err, user) => {
@@ -58,7 +58,7 @@ const User = {
               const tokenObj = {
                 ...user,
               };
-              const token = jwt.sign(tokenObj,process.env.Key);
+              const token = jwt.sign(tokenObj, process.env.Key);
               console.log(token);
               res.status(200).json({
                 message: "user successfully login",
@@ -67,18 +67,20 @@ const User = {
                 token,
               });
             } else {
-              res.status(400).json({
+              res.status(500).json({
                 message: "Password not match",
               });
             }
           } else {
-            res.status(400).json({
+            res.status(500).json({
               message: "User not found",
             });
           }
         }
       });
-    } catch (err) {}
+    } catch (err) {
+      res.status(500).json({ message: "something is wrong" });
+    }
   },
 };
 
