@@ -82,6 +82,32 @@ const User = {
       res.status(500).json({ message: "something is wrong" });
     }
   },
+  getLastFiveUsers: (req, res) => {
+    try {
+      userModel.find().sort({ createdAt: -1 }).limit(5).exec({}, (err, data) => {
+        if (err) res.status(500).json({ message: "something is wrong" });
+        else {
+          res.status(200).json({ message: "Get last five Users", data });
+        }
+      });
+    } catch (err){
+      console.log(err);
+      res.status(500).json({ message: "something is wrong" });
+    }
+  },
+  getAllUser: (req, res) => {
+    try {
+      userModel.find({}, (err, data) => {
+        if (err) res.status(500).json({ message: "something is wrong" });
+        else {
+          res.status(200).json({ message: "Get last five Users", dataName  : data?.length });
+        }
+      })
+    } catch (err){
+      console.log(err);
+      res.status(500).json({ message: "something is wrong" });
+    }
+  }
 };
 
 module.exports = User;

@@ -29,17 +29,12 @@ const Posts = {
       res.status(500).json({ message: "something is wrong" });
     }
   },
-  // find({createdAt: {
-  //   $gte: new Date('2023-01-1'), 
-  //   $lt: new Date('2023-01-10')
-  getData: (req, res) => {
+  getLastFivePosts: (req, res) => {
     try {
-      var d = new Date();
-      d.setDate(d.getDate() - 7);
-      postModel.find().sort({ createdAt: 1 }).limit(2).exec({}  , (err, data) => {
+      postModel.find().sort({ createdAt: -1 }).limit(5).exec({}, (err, data) => {
         if (err) res.status(500).json({ message: "something is wrong" });
         else {
-          res.status(200).json({ message: "Post created", data });
+          res.status(200).json({ message: "Get last five post", data });
         }
       });
     } catch {
